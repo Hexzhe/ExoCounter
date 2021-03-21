@@ -24,5 +24,18 @@ namespace ExoCounter
         {
             InitializeComponent();
         }
+
+        public MainWindow(string counter1Value, string Counter2Value)
+        {
+            InitializeComponent();
+
+            textBox1.Text = counter1Value;
+            textBox2.Text = Counter2Value;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            RegistryHelper.SaveRegistryValues(textBox1.Text, textBox2.Text);
+        }
     }
 }
