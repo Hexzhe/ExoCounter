@@ -55,7 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LabeledCounter.xaml.cs">
+      <DependentUpon>LabeledCounter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegistryHelper.cs" />
+    <Page Include="LabeledCounter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

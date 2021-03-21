@@ -23,19 +23,39 @@ namespace ExoCounter
         public MainWindow()
         {
             InitializeComponent();
+            InitializeCounters();
         }
 
-        public MainWindow(string counter1Value, string Counter2Value)
+        public MainWindow(params (string, string)[] counterValues)
         {
             InitializeComponent();
-
-            textBox1.Text = counter1Value;
-            textBox2.Text = Counter2Value;
+            InitializeCounters(counterValues);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            RegistryHelper.SaveRegistryValues(textBox1.Text, textBox2.Text);
+            SaveCounters();
+        }
+
+        private void SaveCounters()
+        {
+            List<LabeledCounter> counters = new List<LabeledCounter>();
+
+            foreach (var control in grdMain.Children)
+                counters.Add((LabeledCounter)control);
+
+            RegistryHelper.SaveRegistryValues(counters.Select(c => c.Value).ToArray());
+        }
+
+        private void InitializeCounters(params (string, string)[] counterValues)
+        {
+            for (int i = 0; i < counterValues.Length; i++)
+            {
+                var control = new LabeledCounter($"counter{i}", counterValues[i].Item1, counterValues[i].Item2);
+                grdMain.Children.Add(control);
+                grdMain.RowDefinitions.Add(new RowDefinition());
+                Grid.SetRow(control, i);
+            }
         }
     }
 }
