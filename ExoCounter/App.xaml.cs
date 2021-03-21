@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace ExoCounter
 {
@@ -11,7 +12,10 @@ namespace ExoCounter
         {
             var registryValues = RegistryHelper.GetRegistryValues();
 
-            new MainWindow(("Succès", registryValues.Item1), ("Échecs", registryValues.Item2)).Show();
+            new MainWindow(
+                ("Succès", int.Parse(registryValues.Item1), Brushes.Green), 
+                ("Échecs", int.Parse(registryValues.Item2), Brushes.DarkRed))
+                .Show();
         }
     }
 }
